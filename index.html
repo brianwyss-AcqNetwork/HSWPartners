@@ -492,7 +492,12 @@ async function runScan() {
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': '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',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 4000,
@@ -640,7 +645,7 @@ async function openLOI(id) {
   document.getElementById('loiModal').classList.add('open');
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method:'POST', headers:{'Content-Type':'application/json'},
+      method:'POST', headers:{'Content-Type':'application/json','x-api-key':'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','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000,
         messages:[{role:'user',content:`Draft a professional non-binding Letter of Intent for the acquisition of ${d.name} in ${d.city}, ${d.state} (${d.industry}). Buyer: HSW Partners / Avila Phoenix Ventures LLC. Asking: $${(d.price||0).toLocaleString()}, Revenue: $${(d.revenue||0).toLocaleString()}, SDE: $${(d.sde||0).toLocaleString()}, Employees: ${d.employees}, Est: ${d.yearEstablished}. Include: parties, price structure (10% SBA down + seller note), 45-day due diligence, financing contingency, 5yr/50mi non-compete, 90-day close, 30-day exclusivity. Formal letter format, plain text, 350–450 words.`}]})
     });
